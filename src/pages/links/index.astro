@@ -11,7 +11,7 @@ const headings = [
   {
     depth: 2,
     slug: 'common-links',
-    text: 'Common Links'
+    text: 'Regular Friend Links'
   },
   {
     depth: 2,
@@ -20,57 +20,49 @@ const headings = [
   },
   {
     depth: 2,
-    slug: 'small-circle',
-    text: 'Small Circle'
-  },
-  {
-    depth: 2,
     slug: 'apply-links',
-    text: 'Apply Links'
+    text: 'Apply for A Friend Link'
   }
 ]
 
 const friendlist = links.friends
 ---
 
-<PageLayout title='Links' headings={headings} info='/links'>
-  <p>怎么可能有顺序呢，当然是随机的~</p>
-  <h2 id='common-links'>Common Links</h2>
+<PageLayout title='Friend' headings={headings} info='/links'>
+  <p>The links are placed randomly~</p>
+  <h2 id='common-links'>Regular Friend Links</h2>
   <FriendList list={friendlist[0]} />
-  <Collapse title='Links with Bad Status'>
+  <Collapse title='Inactive Friend Links'>
     <FriendList list={friendlist[1]} />
   </Collapse>
-  <Collapse title='Link History Book'>
+  <Collapse title='Friend Link Record Book'>
     <Timeline
       events={[
-        { date: '2024-07-01', content: 'Lorem ipsum dolor sit amet.' },
-        { date: '2024-07-01', content: 'vidit suscipit at mei.' },
-        { date: '2024-07-01', content: 'Quem denique mea id.' }
+        { date: '2024-07-23', content: 'Ethan' },
+        { date: '2024-05-13', content: 'Emoairx' },
+        { date: '2024-05-01', content: 'Arthals\' ink' },
       ]}
     />
   </Collapse>
   <FriendList list={friendlist[2]} title='Special Links' />
 
   <!-- apply-links -->
-  <h2 id='apply-links'>Apply Links</h2>
-  <p>本站信息如下：</p>
-  <blockquote class='not-prose break-words border-s-4 ps-4'>
-    <p>名称：<code>{siteConfig.links.applyTip.name}</code></p>
-    <p>简介：<code>{siteConfig.links.applyTip.desc}</code></p>
-    <p>链接：<code>{siteConfig.links.applyTip.url}</code></p>
-    <p>图标：<code>{siteConfig.links.applyTip.avatar}</code></p>
+  <h2 id='apply-links'>Apply for A Friend Link</h2>
+  <p>The information on this site is as follows: </p>
+  <blockquote class='not-prose border-s-4 ps-4'>
+    <p>Name: <code>{siteConfig.links.applyTip.name}</code></p>
+    <p>Introduction: <code>{siteConfig.links.applyTip.desc}</code></p>
+    <p>Link: <code>{siteConfig.links.applyTip.url}</code></p>
+    <p>Icon: <code>{siteConfig.links.applyTip.avatar}</code></p>
   </blockquote>
 
   <p>
-    申请时还请按照这个模板留言（<a
-      href='https://github.com/cworld1/astro-theme-pure/blob/main/public/links.json'
-      target='_blank'>提交 PR</a
-    > 或许也是个更快的办法）。此外有关申请说明：
+    Friend Link Application Instructions: 
   </p>
   <ul>
-    <li>在你的友链上添加了本站；</li>
-    <li>请确保你的站点活着；</li>
-    <li>博客内容不违反国家法律。</li>
+    <li>Add this site to your friend links</li>
+    <li>Ensure your site is activated</li>
+    <li>Contact me via my <a href="mailto:lyt0112@outlook.com" target="_blank">email</a></li>
   </ul>
   <Comment slot='bottom' />
 </PageLayout>

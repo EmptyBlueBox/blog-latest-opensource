@@ -80,7 +80,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                           ? 'mingcute-document-3-line'
                           : link.type === 'release'
                             ? 'mingcute-package-2-line'
-                            : null
+                            : link.type === 'arxiv'
+                              ? 'mingcute-arxiv-2-line'
+                              : link.type === 'slide'
+                                ? 'mingcute-slide-2-line'
+                                : null
                   return (
                     <a
                       href={link.href}

@@ -9,172 +9,245 @@ import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
 import { Button, Card, Label } from '@/components/user'
 import { getAllCollections, sortMDByDate } from '@/utils'
-import avatar from '@/assets/avatar.png'
 import { siteConfig } from '@/site-config'
 
-const languages = ['Html', 'JavaScript', 'CSS', 'Shell']
-const frontend = ['TypeScript', 'Vite', 'Webpack', 'Astro']
-const backend = ['Vercel', 'Waline']
+import avatar from '@/assets/avatar/avatar_cubing.jpeg'
 
 const MAX_POSTS = 10
 const allPosts = await getAllCollections()
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 ---
+<style>
+  .image-wrapper {
+    margin-right: 24px;
+    width: 40%;
+    height: auto;
+  }
+
+  .content {
+    overflow: auto; /* 清除浮动，确保容器包裹住内容 */
+  }
+
+  .dynamic-border {
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .dynamic-border:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .apple-button {
+    background: linear-gradient(180deg, #0071e3 0%, #0077ed 100%);
+    color: white;
+    border-radius: 980px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .apple-button:hover {
+    background: linear-gradient(180deg, #0077ed 0%, #0082f7 100%);
+    transform: translateY(-1px);
+  }
+
+  .apple-modern-button {
+    /* 保持基础样式简单，让 Button 组件处理深色模式等 */
+    border-radius: 12px !important;
+    padding: 12px 28px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.01em !important;
+    
+    /* 布局 */
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    
+    /* 动画效果 */
+    transition: all 0.2s ease !important;
+  }
+
+  .apple-modern-button:hover {
+    transform: translateY(-1px) !important;
+  }
+
+  .apple-modern-button svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .apple-modern-button:hover svg {
+    transform: translateX(2px);
+  }
+</style>
 
 <PageLayout meta={{ title: 'Home' }} highlightColor='#659EB966'>
-  <div class='flex w-full flex-col items-center'>
-    <section class='animate mb-10 flex flex-col items-center gap-y-7' id='content-header'>
-      <Image
-        src={avatar}
-        alt='profile'
-        class='h-28 w-auto rounded-full border p-1'
-        loading='eager'
-      />
+  <div class='flex w-full flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
+    <section class='animate flex flex-col items-center gap-y-8'>
+      <div class='flex items-center gap-x-6'>
+        <div class="rounded-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <Image
+            src={avatar}
+            alt='profile'
+            class='h-40 w-40 object-cover'
+            loading='eager'
+          />
+        </div>
 
-      <div class='flex flex-col items-center gap-y-4'>
-        <h1 class='text-3xl font-bold'>{siteConfig.author}</h1>
-        <div class='flex flex-wrap justify-center gap-x-7 gap-y-3'>
-          <Label title='China'>
-            <svg class='size-5' slot='icon'>
-              <use href='/icons/social.svg#mingcute-location-line'></use>
-            </svg>
-          </Label>
-          <Label
-            title='Source code'
-            as='a'
-            href='https://github.com/cworld1/astro-theme-pure'
-            target='_blank'
-          >
-            <svg class='size-5' slot='icon'>
-              <use href='/icons/social.svg#mingcute-github-line'></use>
-            </svg>
-          </Label>
+        <div class='flex flex-col items-start gap-y-4'>
+          <h1 class='text-4xl font-medium tracking-tight text-gray-900 dark:text-gray-100'>{siteConfig.author}</h1>
+          <div class='flex flex-wrap gap-x-5 gap-y-3'>
+            <Label 
+              title='Beijing · China' 
+              class='text-gray-600 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'>
+              <svg class='size-5' slot='icon'>
+                <use href='/icons/social.svg#mingcute-location-line'></use>
+              </svg>
+            </Label>
+            <Label 
+              title='GitHub' 
+              as='a' 
+              href='https://github.com/EmptyBlueBox' 
+              target='_blank'
+              class='text-gray-600 hover:text-gray-900 transition-colors dark:text-gray-300 dark:hover:text-gray-100'>
+              <svg class='size-5' slot='icon'>
+                <use href='/icons/social.svg#mingcute-github-line'></use>
+              </svg>
+            </Label>
+          </div>
         </div>
       </div>
     </section>
 
-    <div id='content' class='flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
-      <Section title='About'>
-        <p class='text-muted-foreground'>Developer / Designer</p>
-        <p class='text-muted-foreground'>
-          Lorem ipsum dolor sit amet, vidit suscipit at mei. Quem denique mea id. Usu ei regione
-          indoctum dissentiunt, cu meliore fuisset mei, vel quod voluptua ne. Ex dicat impedit mel,
-          at eum oratio possit voluptatum.
-        </p>
-        <Button title='More about me' class='w-fit self-end' href='/about' style='ahead' />
-      </Section>
-      {
-        allPostsByDate.length > 0 && (
-          <Section title='Posts'>
-            <ul class='flex flex-col gap-y-1.5 sm:gap-y-2'>
-              {allPostsByDate.map((p) => (
-                <li class='flex flex-col gap-x-2 sm:flex-row'>
-                  <PostPreview post={p} />
-                </li>
-              ))}
-            </ul>
-            <Button title='More posts' class='w-fit self-end' href='/blog' style='ahead' />
-          </Section>
-        )
-      }
+    <center>
+    <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Flyt0112.com&count_bg=%23000000&title_bg=%23000000&icon=&icon_color=%23FFFFFF&title=Today+%2F+Total%3A&edge_flat=false"/></a>
+    </center>
+    
+    <Section title='Brief'>
+      <p>Undergraduate / Researcher</p>
+      <p>
+      Hi there! I am Yutong Liang (梁昱桐), a senior undergraduate student at the <a href='https://eecs.pku.edu.cn/xxkxjsxy/Home/HOME.htm' target='_blank'>School of EECS</a>, <a href='https://www.pku.edu.cn/' target='_blank'>Peking University</a>, majoring in Computer Science.
+      </p>
+      <p>
+      I'm interested in the field of character animation/embodied AI, supervised by <a href='https://libliu.info/' target='_blank'>Prof. Libin Liu</a> in the <a href='https://vcl.pku.edu.cn/' target='_blank'>VCL lab</a> of <a href='https://www.pku.edu.cn/' target='_blank'>Peking University</a>. 
+      </p>
+      <p>    
+      Currently my interest is in HOI (human-object interaction) , HSI (human-scene interaction) and hands! From a long-term perspective, I want to delve deeper into how technology can understand, mimic, and generate human-like dexterous interactions with the world, in one word, making computers more like us!
+      </p>
+      <p>
+      I was a research intern at <a href='https://www.stanford.edu/' target='_blank'>Stanford University</a> during the summer of 2024, where I worked with <a href='https://shellguo.com/' target='_blank'>Michelle Guo</a> and <a href='https://pei-xu.github.io/' target='_blank'>Pei Xu</a>, under the guidance of <a href='https://profiles.stanford.edu/c-karen-liu' target='_blank'>Prof. Karen Liu</a> and <a href='https://jiajunwu.com/' target='_blank'>Prof. Jiajun Wu</a>.
+      </p>
+      <Button
+        title="More About Me"
+        class="apple-modern-button w-fit"
+        href="/about",
+        style='ahead' 
+      >
+        More About Me
+      </Button>
+    </Section>
 
-      {
-        /* <Section title='Experience'>
+    <Section title='Project'>
+      <div class='grid lg:grid-cols-2 grid-cols-1 gap-3 '>
+        <ProjectCard
+          href='https://github.com/EmptyBlueBox/MotionMatching'
+          heading='Motion Matching on AMASS'
+          subheading='A motion matching project on AMASS dataset.'
+          imagePath='/src/assets/projects/motion_matching.png'
+        />
+        <ProjectCard
+          href='https://drive.google.com/file/d/1EcV7oFHbNf5Os1IQlSh89UTDEI1yTqhe/view?usp=sharing'
+          heading='Motion Guided Interior Design'
+          subheading='Integrate motion considerations into the design process.'
+          imagePath='/src/assets/projects/layout_pipeline.png'
+        />
+        <ProjectCard
+          href='https://arxiv.org/abs/2405.19711'
+          heading='SimiSketch'
+          subheading='A sketching algorithm estimate similarity between sets.'
+          imagePath='/src/assets/projects/simisketch.png'
+        />
+        <ProjectCard
+          href='/projects'
+          heading='More projects'
+          subheading='Check out more interesting projects of mine!'
+          imagePath='/src/assets/projects/stanford_life.jpeg'
+        />
+      </div>
+    </Section>
+
+    <Section title='Education'>
       <Card
-        heading='Lorem Ipsum'
-        subheading='Sit amet consectetur'
-        date='Dec 2022 - Nov 2023'
-        imagePath='/src/assets/about-astro.png'
-        altText='Lorem, ipsum dolor sit'
-        imageClass='h-12 w-auto md:-start-16'
+        as='a'
+        heading='Peking University'
+        subheading='Full-time Undergraduate Student'
+        date='September 2021 - July 2025'
+        href='https://www.pku.edu.cn/'
+        imagePath='/src/assets/homepage/pku.png'
       >
         <ul class='ms-4 list-disc text-muted-foreground'>
-          <li>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-            molestiae laboriosam pariatur!
-
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-          </li>
+          <li>Major: Computer Science</li>
+          <li>School: EECS</li>
         </ul>
       </Card>
       <Card
-        heading='Lorem Ipsum'
-        subheading='Sit amet consectetur'
-        date='Dec 2022 - Nov 2023'
-        imagePath='/src/assets/about-astro.png'
-        altText='Lorem, ipsum dolor sit'
-        imageClass='h-12 w-auto md:-start-16'
-      />
-    </Section> */
-      }
-      <Section title='Education'>
-        <Card
-          as='a'
-          heading='Lorem ipsum'
-          subheading='Lorem ipsum dolor sit amet, vidit suscipit at mei.'
-          date='August 2021 - July 2025'
-          href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        >
-          {
-            /* <ul class='ms-4 list-disc text-muted-foreground'>
-          <li>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-            molestiae laboriosam pariatur!
-          </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-        </ul> */
-          }
-        </Card>
-      </Section>
+        as='a'
+        heading='Nankai High School'
+        subheading='Full-time High School Student'
+        date='September 2018 - July 2021'
+        href='https://nkzx.tj.edu.cn/'
+        imagePath='/src/assets/homepage/nk.png'
+      >
+        <ul class='ms-4 list-disc text-muted-foreground'>
+          <li>Location: Nankai, Tianjin</li>
+        </ul>
+      </Card>
+    </Section>
+    
+    {
+      allPostsByDate.length > 0 && (  
+        <Section title='Blog'>
+          <ul class='flex flex-col gap-y-1.5 sm:gap-y-2'>
+            {allPostsByDate.map((p) => (
+              <li class='flex flex-col gap-x-2 sm:flex-row'>
+                <PostPreview post={p} />
+              </li>
+            ))}
+          </ul>
+          <Button title='More blogs' class='w-fit self-end' href='/blog' style='ahead' />
+        </Section>
+      )
+    }
 
-      <Section title='Website List'>
-        <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
-          <ProjectCard
-            href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-            heading='Lorem ipsum'
-            subheading='dolor sit amet, oratio ornatus explicari pro ex'
-            imagePath='/src/assets/projects/alex-tyson-2BAXJ7ha74s-unsplash.jpg'
-          />
-          <ProjectCard
-            href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-            heading='Lorem ipsum'
-            subheading='dolor sit amet, oratio ornatus explicari pro ex'
-            imagePath='/src/assets/projects/angelica-teran-Bk9hpaXHK4o-unsplash.jpg'
-          />
-          <ProjectCard
-            href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-            heading='Lorem ipsum'
-            subheading='dolor sit amet, oratio ornatus explicari pro ex'
-            imagePath='/src/assets/projects/kseniia-zapiatkina-yATU3rg8tNI-unsplash.jpg'
-          />
-          <ProjectCard
-            href='/projects'
-            heading='More projects'
-            subheading='Check out more projects'
-            imagePath='/src/assets/projects/wen-qiao-g_w8I64FiO0-unsplash.jpg'
-          />
-        </div>
-      </Section>
-
-      <Section title='Certifications'>
-        <Card
-          as='a'
-          heading='Lorem ipsum'
-          subheading='Lorem ipsum dolor sit amet, vidit suscipit at mei. Quem denique mea id. Usu ei regione indoctum dissentiunt, cu meliore fuisset mei, vel quod voluptua ne. Ex dicat impedit mel, at eum oratio possit voluptatum. Dicat ceteros cu vim. Impetus fuisset ullamcorper pri cu, his posse iisque ad, aliquam honestatis usu id.'
-          date='July 2024'
-          href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        />
-      </Section>
-
-      <Section title='Skills'>
-        <SkillLayout title='Languages' skills={languages} />
-        <SkillLayout title='Frontend' skills={frontend} />
-        <SkillLayout title='Backend' skills={backend} />
-      </Section>
-    </div>
+    <Section title='This site'>
+      <p class='text-muted-foreground'>
+      The smooth operation and personalized customization of this website rely on 
+      the resources and technical support provided by the following outstanding projects and service providers:
+      </p>
+      <SkillLayout title='Framework' skills={['Astro']} hrefs={['https://astro.build/']} />
+      <SkillLayout title='Theme' skills={['Astro theme pure']} hrefs={['https://github.com/cworld1/theme-astro-pure']} />
+      <SkillLayout title='Hosting' skills={['Vercel']} hrefs={['https://vercel.com/']}/>
+      <SkillLayout title='CI/CD' skills={['Vercel Workflow']} hrefs={['https://vercel.com/workflow']} />
+      <SkillLayout title='CDN' skills={['Doge Cloud']} hrefs={['https://console.dogecloud.com/']} />
+      <SkillLayout title='Visits' skills={['Waline','Supabase']} hrefs={['https://waline.js.org','https://supabase.com/']} />
+      <SkillLayout title='Comment' skills={['Waline']} hrefs={['https://waline.js.org/']} />
+      <SkillLayout title='Follower statistics' skills={['Substats']} hrefs={['https://github.com/spencerwooo/substats']} />
+      <p class='text-muted-foreground'>
+        Thanks <a href='https://cworld.top/' target='_blank'>CWorld</a> and <a href='https://arthals.ink/' target='_blank'>Arthals</a> for developing this theme.
+      </p>
+      <p class='text-muted-foreground'>
+        <div style="width: 600px; height: 400px; overflow: hidden; position: relative;"><script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=080808&w=a&t=tt&d=Vi9HIVFb08Wh_qQnJDJykD7V1Nz82B4WQFGUyjSd7Uo&co=ffffff&ct=808080&cmo=3acc3a&cmn=ff5353' style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></script></div>
+      </p>
+    </Section>
   </div>
 
-  <div
+  <!-- <div
     class='mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
   >
     <span class='relative flex items-center justify-center'>
@@ -183,7 +256,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       ></span>
       <span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
     </span>
-
     <Hitokoto />
-  </div>
+  </div> -->
+
 </PageLayout>

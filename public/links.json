@@ -2,7 +2,7 @@
   "friends": [
     {
       "id_name": "cf-links",
-      "desc": "Common links included in circle friends",
+      "desc": "列入友链朋友圈的好友",
       "link_list": [
         {
           "name": "Arthals' ink",
@@ -11,22 +11,29 @@
           "avatar": "https://cdn.arthals.ink/Arthals.png"
         },
         {
-          "name": "CWorld Site",
-          "intro": "求知若愚，虚怀若谷",
-          "link": "https://cworld0.com/",
-          "avatar": "https://cravatar.cn/avatar/1ffe42aa45a6b1444a786b1f32dfa8aa?s=200"
+          "name": "Emoairx",
+          "intro": "这是一个好人",
+          "link": "https://emoairx.github.io",
+          "avatar": "https://emoairx.github.io/blog/images/avatar.jpg",
+          "email": "chenqizhi@stu.pku.edu.cn"
+        },
+        {
+          "name": "Ethan",
+          "intro": "Don't stay awake for too long.",
+          "link": "https://hanlife02.com.cn",
+          "avatar": "https://hanlife02.com.cn/api/v2/objects/avatar/gx9b37su4orc2hbhqm.jpg",
+          "email": "han@hanlife02.com.cn"
         }
       ]
     },
     {
       "id_name": "inactive-links",
-      "desc": "Inactive or rule-breaking friends",
-      "link_list": [
-      ]
+      "desc": "不太活跃的好友",
+      "link_list": []
     },
     {
       "id_name": "special-links",
-      "desc": "Other special links",
+      "desc": "其他特殊链接",
       "link_list": [
         {
           "name": "虫洞",
@@ -38,7 +45,7 @@
           "name": "开往",
           "intro": "随机前往开往的成员博客",
           "link": "https://www.travellings.cn/go.html",
-          "avatar": "https://www.travellings.cn/assets/travelling.png"
+          "avatar": "/images/travelling.png"
         },
         {
           "name": "BlogFinder",

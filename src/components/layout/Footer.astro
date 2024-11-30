@@ -43,6 +43,17 @@ const SocialMediaIconId: Record<string, string> = {
             </a>
           )
         }
+        {
+          footerConfig.mengICP && (
+            <a
+              class='py-[3px] text-xs text-muted-foreground'
+              href={footerConfig.mengICP.url}
+              target='_blank'
+            >
+              {footerConfig.mengICP.text}
+            </a>
+          )
+        }
         <div class='text-muted-foreground [&_a:hover]:text-primary [&_a]:text-foreground'>
           © {year}
           {siteConfig.author} &

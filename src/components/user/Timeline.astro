@@ -3,6 +3,7 @@ interface Props {
   class?: string
   events: {
     date: string
+    icon?: string
     content: string
   }[]
 }
@@ -28,6 +29,9 @@ const { class: className, events, ...props } = Astro.props
             <samp class='w-fit grow-0 rounded-md py-1 text-sm max-sm:bg-muted max-sm:px-2 sm:min-w-[82px] sm:text-right'>
               {event.date}
             </samp>
+            <div class='flex items-center gap-2'>
+              {event.icon && <Fragment set:html={event.icon} />}
+            </div>
             <div>
               <Fragment set:html={event.content} />
             </div>
